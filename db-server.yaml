@@ -1,5 +1,5 @@
 - name: configuring DB server
   hosts: db
   become: yes
-  roles: 
+  roles: # this will search for roles folder is present or not,if present then it will read folders,files sequentially and execute the module
   - db
