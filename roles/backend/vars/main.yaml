@@ -2,3 +2,4 @@ login_user: root
 login_password: ExpenseApp@1
 login_host: db.guru97s.cloud
 DB_HOST: db.guru97s.cloud
+mysql_root_password: ExpenseApp@1
