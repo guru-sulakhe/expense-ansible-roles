@@ -3,3 +3,5 @@ login_password: ExpenseApp@1
 login_host: db.guru97s.cloud
 DB_HOST: db.guru97s.cloud
 mysql_root_password: ExpenseApp@1
+app_location: /app
+component: backend
