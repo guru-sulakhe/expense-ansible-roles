@@ -17,11 +17,15 @@
     name: expense
 
 - name: run app pre-requeisites 
+  tags:
+  - deployment
   ansible.builtin.import_role:
     role: common
     tasks_from: app_pre_req
 
 - name: installing npm dependencies on /app directory
+  tags: 
+  - deployment
   ansible.builtin.command: npm install 
   args:
     chdir: /app # first changes its directory, then install npm dependencies
@@ -54,7 +58,9 @@
     daemon_reload: true
 
 - name: start and enable backend service
+  tags:
+  - deployment
   ansible.builtin.service:
     name: backend
-    state: started
+    state: restarted
     enabled: yes
