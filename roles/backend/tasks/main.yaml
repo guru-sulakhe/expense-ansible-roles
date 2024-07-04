@@ -24,8 +24,6 @@
     tasks_from: app_pre_req
 
 - name: installing npm dependencies on /app directory
-  tags: 
-  - deployment
   ansible.builtin.command: npm install 
   args:
     chdir: /app # first changes its directory, then install npm dependencies
