@@ -26,7 +26,7 @@
 - name: installing npm dependencies on /app directory
   ansible.builtin.command: npm install 
   args:
-    chdir: /app # first changes its directory, then install npm dependencies
+    chdir: "{{app_location}}" # first changes its directory, then install npm dependencies
 
 - name: copy backend service 
   ansible.builtin.template:
