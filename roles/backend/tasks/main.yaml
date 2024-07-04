@@ -1,64 +1,62 @@
-- name: disable nodejs
+- name: disable default nodejs
   ansible.builtin.command: dnf module disable nodejs -y
 
-- name: enabling nodejs:20
+- name: enable nodejs:20
   ansible.builtin.command: dnf module enable nodejs:20 -y
 
-- name: installing nodejs
-  ansible.builtin.dnf: # only works for redhat enterprise
+- name: install nodejs
+  ansible.builtin.dnf: # only works for Redhat family
     name: "{{ item }}"
     state: installed
   loop:
-    - nodejs
-    - mysql
+  - nodejs
+  - mysql
 
-- name: creating expense user
+- name: create expense user
   ansible.builtin.user:
     name: expense
 
-- name: run app pre-requeisites 
+- name: run app pre-requisites
   tags:
   - deployment
   ansible.builtin.import_role:
     name: common
-    tasks_from: app_pre_req
+    tasks_from: app-pre-req
 
 - name: install npm dependencies
-  tags: 
+  tags:
   - deployment
-  ansible.builtin.command: npm install 
+  ansible.builtin.command: npm install
   args:
-    chdir: /app # first changes its directory, then install npm dependencies
+    chdir: /app
 
-- name: copy backend service 
+- name: copy backend service
   ansible.builtin.template:
     src: backend.service.j2
-    dest: /etc/systemd/system/backend.service # copy backend.service to dest: /etc/systemd/*
+    dest: /etc/systemd/system/backend.service
 
-  #Ansible is develped in python
-#now we are connecting to mysql from ansible which is develped by python
-#PyMySQL is a dependency for python to connect mysql servers
-- name: installing python mysql dependencies
-  ansible.builtin.pip: #pip is used to install python dependencies
+- name: install python mysql dependencies
+  ansible.builtin.pip: 
     name:
-    - PyMySQL # to connect MySQL db from ansible
+    - PyMySQL # to connect MySQL DB from Ansible
     - cryptography
-    executable:  pip3.9 # pip 3.11 if python version is 3.11
+    executable: pip3.9 # pip3.11 if python version is 3.11
+
 - name: import data into mysql
-  ansible.builtin.mysql_db:
-    login_user: "{{login_user}}"
-    login_password: "{{mysql_root_password}}"
-    login_host: "{{login_host}}"
+  community.mysql.mysql_db:
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
+    login_host: "{{ login_host }}"
     target: /app/schema/backend.sql
     state: import
     name: all
 
-- name: daemon reload service
+- name: daemon reload
   ansible.builtin.systemd_service:
     daemon_reload: true
 
 - name: start and enable backend service
-  tags:
+  tags: 
   - deployment
   ansible.builtin.service:
     name: backend
