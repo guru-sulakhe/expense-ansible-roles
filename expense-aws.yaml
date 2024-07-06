@@ -8,7 +8,7 @@
         instance_type: t2.micro
         name: "{{ item }}" # 3 instances names
         security_group: allow-everything # replace with your AWS values
-        img-id: ami-041e2ea9402c46c32 # AMI id(RHEL-9) for the 3 ec2 servers
+        image_id: ami-041e2ea9402c46c32 # AMI id(RHEL-9) for the 3 ec2 servers
         tags: 
           Name: "{{ item }}"
       loop:
@@ -16,3 +16,4 @@
       - backend
       - frontend
       register: ec2_instances_info
+ 
