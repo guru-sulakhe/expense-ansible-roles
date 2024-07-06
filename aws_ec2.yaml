@@ -9,5 +9,5 @@ filters:
   tag:Name: "backend*"
 
 compose:
-  # this set the ansible host variable to connect with the private IP Address
+  # this set the ansible host variable to connect with the private IP Address without changing the host name
   ansible_host: private_ip_address
