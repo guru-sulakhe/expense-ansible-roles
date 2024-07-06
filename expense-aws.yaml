@@ -16,4 +16,7 @@
       - backend
       - frontend
       register: ec2_instances_info
- 
+  
+    - name: printing output
+      ansible.builtin.debug:
+      msg: "Output: {{ec2_instance_info}}"
