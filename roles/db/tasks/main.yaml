@@ -27,7 +27,7 @@
     login_password: "{{mysql_root_password}}"
     login_host: "{{login_host}}"
     filter: version    #to check mysql is installed or not
-  ignore_errors: true
+  ignore_errors: yes
   register: mysql_connection_output
 
 - name: print output
