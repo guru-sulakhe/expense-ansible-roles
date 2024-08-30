@@ -3,3 +3,6 @@
   become: yes
   roles: 
   - "{{ component }}"
+
+  # execute as
+  # anisble-playbook main.yaml -e component=db
