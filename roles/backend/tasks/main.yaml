@@ -62,3 +62,6 @@
     name: backend
     state: restarted
     enabled: yes
+
+#to execute this module in linux server, run the below command
+# ansible-playbook backend.yaml
