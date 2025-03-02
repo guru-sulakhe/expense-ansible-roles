@@ -40,4 +40,4 @@
   when: mysql_connection_output.failed is true
 
 
-  # ansible-playbook db.yaml
+  # run this command to execute this module in linux server, ansible-playbook db.yaml
